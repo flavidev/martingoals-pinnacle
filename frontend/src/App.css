@@ -1,0 +1,79 @@
+body{
+  margin:0;
+  background-color: #222831;
+}
+
+.app {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  background-color: #00adb5;
+  font-size: 5vw;
+  margin: 1.25% 0;
+  color: #393e46;
+  width: 100vw;
+}
+
+h2{
+  color: #eeeeee;
+}
+
+.main-dashboard {
+  align-items: center;
+  text-align: center;
+}
+
+table {
+  color: #393e46;
+  background-color: #00adb5;
+  width: 100vw;
+  font-size: 2.5vw;
+  border: 1px solid #222831;
+}
+
+table td{
+  background-color:#eeeeee;
+}
+
+.control-dashboard{
+  font-size: 1vw;
+  align-items: center;
+  margin: 2.5vw;
+  display: flex;
+  flex-direction: row;
+}
+.control-panel{
+  flex: 1;
+}
+.control-panel span{
+  margin: 1vw;
+  font-size: 1.5vw;
+  color: #eeeeee;
+}
+
+
+
+.control-panel input {
+  margin-top: 1vh;
+  width: 6.5vw;
+  height: 2.5vw;
+  text-align: center;
+  font-size: larger;
+  
+}
+
+.control-panel button{
+  font-size: 120%;
+  width: 7.5vw;
+  height: 6vh;
+  margin: 2vh 1.5vw 0 0;
+  background-color: #393e46;
+  color: #eeeeee;
+}
+
+.result-panel{
+flex:3;
+margin-top: 0;
+}

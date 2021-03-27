@@ -6,33 +6,17 @@ import Match from "./components/Match";
 import "./App.css";
 
 function App() {
-  const initialDeposit = 100;
+  const initialDeposit = 5;
 
-  const [balance, setBalance] = useState();
-  const [openBet, setOpenBet] = useState();
+  const [balance, setBalance] = useState(10);
+  const [openBet, setOpenBet] = useState(1);
   const [underGoals, setUnderGoals] = useState(2.5);
   const [overGoals, setOverGoals] = useState(2.5);
   const [targetOdd, setTargetOdd] = useState(1.85);
-  const [matches, setMatches] = useState([
-    {
-      id: Math.random(),
-      date: "24/03/2020",
-      time: "21:35",
-      goals: "Over 2.5",
-      odd: "1.8",
-      home: "Flamengo",
-      away: "Botafogo",
-    },
-    {
-      id: Math.random(),
-      date: "25/03/2020",
-      time: "20:00",
-      goals: "Under 2.5",
-      odd: "1.9",
-      home: "Vasco",
-      away: "Fluminense",
-    },
-  ]);
+  const [matches, setMatches] = useState([]);
+
+  /*
+
 
   useEffect(() => {
     api.get("balance").then((response) => {
@@ -41,6 +25,9 @@ function App() {
     });
   }, []);
 
+
+  */
+
   function handleReset() {
     setUnderGoals(2.5);
     setOverGoals(2.5);
@@ -48,13 +35,13 @@ function App() {
   }
 
   function handleSearch() {
-    api.get(`matches/${targetOdd}/${underGoals}/${overGoals}`).then((response) => {
-      
-      console.log("Target odd is " + response.data.targetOdd);
-      // setMatches(response.data.matches)
-
-
-    });
+    api
+      .get(`matches/${targetOdd}/${underGoals}/${overGoals}`)
+      .then((response) => {
+        console.log("Target odd is " + targetOdd);
+        console.log(response.data);
+        setMatches(response.data);
+      });
   }
 
   return (

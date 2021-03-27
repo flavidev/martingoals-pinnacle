@@ -4,6 +4,9 @@ const axios = require("axios");
 
 require("dotenv").config({ path: __dirname + "/.env" });
 
+const oddsData = require("./mockData/OddsData.json");
+const fixturesData = require("./mockData/FixturesData.json");
+
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -13,10 +16,29 @@ let marketData = {
   fixtures: {},
   odds: {},
   balance: {},
-  underGoals:null,
-  overGoals:null,
-  targetOdd:null,
-  matches: [],
+  underGoals: 2.5,
+  overGoals: 2.5,
+  targetOdd: null,
+  matches: [
+    {
+      id: Math.random(),
+      date: "24/03/2020",
+      time: "21:35",
+      goals: "Over 2.5",
+      odd: 1.8,
+      home: "Team A",
+      away: "Team B",
+    },
+    {
+      id: Math.random(),
+      date: "25/03/2020",
+      time: "20:00",
+      goals: "Under 2.5",
+      odd: 1.9,
+      home: "Team C",
+      away: "Team D",
+    },
+  ],
 };
 
 const getBalance = async () => {
@@ -68,7 +90,7 @@ const getFixtures = async () => {
       },
     });
     marketData.fixtures = response.data;
-    console.log("Soccer fixtures have been updated 🗓")
+    console.log("Soccer fixtures have been updated 🗓");
   } catch (err) {
     console.log(err);
   }
@@ -85,14 +107,41 @@ const getOdds = async () => {
       },
     });
     marketData.odds = response.data;
-    console.log("Soccer odds have been updated 📈")
+    console.log("Soccer odds have been updated 📈");
   } catch (err) {
     console.log(err);
   }
 };
 
-const findMatches = async (underGoals, overGoals, minimumOdd) => {
-  // Do something
+const findMatches = async () => {
+  let foundMatches = [];
+
+  try {
+    oddsData.leagues.forEach((league) =>
+      league.events.forEach((event) =>
+        foundMatches.push({
+          matchId: event.id,
+          totals: (event.periods[0].totals || []).filter(
+            (value) =>
+              (value.points === marketData.underGoals ||
+                value.points === marketData.overGoals) &&
+              ((value.over >= marketData.targetOdd &&
+                value.over < value.under) ||
+                (value.under >= marketData.targetOdd &&
+                  value.under < value.over))
+          ),
+        })
+      )
+    );
+
+    console.log(foundMatches.length);
+
+    foundMatches = foundMatches.filter((match) => match.totals.length > 0);
+
+    console.log(foundMatches.length);
+  } catch (err) {
+    console.log("Found error... " + err);
+  }
 };
 
 app.get("/balance", async (req, res) => {
@@ -101,14 +150,14 @@ app.get("/balance", async (req, res) => {
 });
 
 app.get("/matches/:targetOdd/:underGoals/:overGoals", async (req, res) => {
-  await getSoccerId();
-  await getFixtures();
-  await getOdds();
-  //await findMatches();
-  marketData.targetOdd = req.params.targetOdd
-  marketData.overGoals = req.params.overGoals
-  marketData.underGoals = req.params.underGoals
-  res.send(JSON.stringify(marketData));
+  marketData.targetOdd = parseFloat(req.params.targetOdd);
+  marketData.overGoals = parseFloat(req.params.overGoals);
+  marketData.underGoals = parseFloat(req.params.underGoals);
+  //await getSoccerId();
+  //await getFixtures();
+  //await getOdds();
+  await findMatches();
+  res.send(JSON.stringify(marketData.matches));
 });
 
 app.listen(3333, () => {

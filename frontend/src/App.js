@@ -6,17 +6,14 @@ import Match from "./components/Match";
 import "./App.css";
 
 function App() {
-  const initialDeposit = 5;
+  const initialDeposit = 77.46;
 
-  const [balance, setBalance] = useState(10);
-  const [openBet, setOpenBet] = useState(1);
+  const [balance, setBalance] = useState();
+  const [openBet, setOpenBet] = useState();
   const [underGoals, setUnderGoals] = useState(2.5);
   const [overGoals, setOverGoals] = useState(2.5);
   const [targetOdd, setTargetOdd] = useState(1.9);
   const [matches, setMatches] = useState([]);
-
-  /*
-
 
   useEffect(() => {
     api.get("balance").then((response) => {
@@ -25,13 +22,11 @@ function App() {
     });
   }, []);
 
-
-  */
-
   function handleReset() {
     setUnderGoals(2.5);
     setOverGoals(2.5);
-    setTargetOdd(1.85);
+    setTargetOdd(1.9);
+    setMatches([]);
   }
 
   function handleSearch() {

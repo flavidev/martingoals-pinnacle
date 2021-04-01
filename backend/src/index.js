@@ -119,8 +119,8 @@ const findMatches = async () => {
   let foundMatches = [];
 
   try {
-    //marketData.odds.leagues.forEach((league) =>
-    oddsData.leagues.forEach((league) =>
+    marketData.odds.leagues.forEach((league) =>
+      //oddsData.leagues.forEach((league) =>
       league.events.forEach((event) =>
         foundMatches.push({
           matchId: event.id,
@@ -189,9 +189,9 @@ app.get("/matches/:targetOdd/:underGoals/:overGoals", async (req, res) => {
   marketData.targetOdd = parseFloat(req.params.targetOdd);
   marketData.overGoals = parseFloat(req.params.overGoals);
   marketData.underGoals = parseFloat(req.params.underGoals);
-  //await getSoccerId();
-  //await getFixtures();
-  //await getOdds();
+  await getSoccerId();
+  await getFixtures();
+  await getOdds();
   await findMatches();
   res.send(JSON.stringify(marketData.matches));
 });

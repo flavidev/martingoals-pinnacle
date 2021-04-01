@@ -8,8 +8,7 @@ function Match(props) {
     <div className="match-container">
       <li>
         {" "}
-        {props.date} - {props.time} - {props.odd} - {props.goals} - {props.home}{" "}
-        vs {props.away}
+        {props.starts} - {props.odd} - {props.home} vs {props.away}
       </li>
     </div>
   );

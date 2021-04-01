@@ -16,10 +16,12 @@ let marketData = {
   fixtures: {},
   odds: {},
   balance: {},
-  underGoals: 2.5,
-  overGoals: 2.5,
+  underGoals: null,
+  overGoals: null,
   targetOdd: null,
-  matches: [
+  matches: [],
+
+  /*  [
     {
       id: Math.random(),
       date: "24/03/2020",
@@ -38,7 +40,7 @@ let marketData = {
       home: "Team C",
       away: "Team D",
     },
-  ],
+  ], */
 };
 
 const getBalance = async () => {
@@ -117,6 +119,7 @@ const findMatches = async () => {
   let foundMatches = [];
 
   try {
+    //marketData.odds.leagues.forEach((league) =>
     oddsData.leagues.forEach((league) =>
       league.events.forEach((event) =>
         foundMatches.push({
@@ -134,11 +137,44 @@ const findMatches = async () => {
       )
     );
 
-    console.log(foundMatches.length);
+    console.log("Analysing " + foundMatches.length + " matches.");
 
     foundMatches = foundMatches.filter((match) => match.totals.length > 0);
 
-    console.log(foundMatches.length);
+    console.log("Found " + foundMatches.length + " match(es)!");
+
+    fixturesData.league.forEach((event) =>
+      event.events.forEach((fixture) =>
+        foundMatches.map((match) =>
+          match.matchId === fixture.id
+            ? //console.log(fixture)
+              marketData.matches.push({
+                id: fixture.id,
+                starts: fixture.starts,
+                goals: match.totals[0].points,
+
+                odd:
+                  match.totals[0].over < match.totals[0].under
+                    ? "Over " +
+                      match.totals[0].points +
+                      " Goals - " +
+                      match.totals[0].over
+                    : "Under " +
+                      match.totals[0].points +
+                      " Goals - " +
+                      match.totals[0].under,
+
+                home: fixture.home,
+                away: fixture.away,
+              })
+            : null
+        )
+      )
+    );
+
+    marketData.matches.sort((a, b) => new Date(a.starts) - new Date(b.starts));
+
+    console.log(marketData.matches);
   } catch (err) {
     console.log("Found error... " + err);
   }

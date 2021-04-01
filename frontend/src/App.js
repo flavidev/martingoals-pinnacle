@@ -12,7 +12,7 @@ function App() {
   const [openBet, setOpenBet] = useState(1);
   const [underGoals, setUnderGoals] = useState(2.5);
   const [overGoals, setOverGoals] = useState(2.5);
-  const [targetOdd, setTargetOdd] = useState(1.85);
+  const [targetOdd, setTargetOdd] = useState(1.9);
   const [matches, setMatches] = useState([]);
 
   /*
@@ -109,10 +109,8 @@ function App() {
             {matches.map((match) => (
               <Match
                 key={match.id}
-                date={match.date}
-                time={match.time}
+                starts={match.starts}
                 odd={match.odd}
-                goals={match.goals}
                 home={match.home}
                 away={match.away}
               />

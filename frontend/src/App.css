@@ -73,4 +73,5 @@ table td {
 .result-panel {
   flex: 3;
   margin-top: 0;
+  align-content: center;
 }

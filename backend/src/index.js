@@ -52,7 +52,7 @@ const getSoccerId = async () => {
     response.data.sports.filter((sport) => {
       if (sport.name === "Soccer") {
         marketData.soccerId = sport.id;
-        console.log(`Soccer id is ${marketData.soccerId}`);
+        //console.log(`Soccer id is ${marketData.soccerId}`);
       }
     });
   } catch (err) {
@@ -121,8 +121,6 @@ const findMatches = async () => {
 
     foundMatches = foundMatches.filter((match) => match.totals.length > 0);
 
-    console.log("Found " + foundMatches.length + " match(es)!");
-
     fixturesData.league.forEach((event) =>
       event.events.forEach((fixture) =>
         foundMatches.map((match) =>
@@ -152,8 +150,9 @@ const findMatches = async () => {
     );
 
     marketData.matches.sort((a, b) => new Date(a.starts) - new Date(b.starts));
+    console.log("Found " + marketData.matches.length + " match(es)!");
 
-    console.log(marketData.matches);
+    //console.log(marketData.matches);
   } catch (err) {
     console.log("Found error... " + err);
   }

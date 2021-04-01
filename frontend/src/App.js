@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import api from "./services/api";
 
 import Match from "./components/Match";
+import Loader from "react-loader-spinner";
 
 import "./App.css";
 
@@ -14,6 +15,7 @@ function App() {
   const [overGoals, setOverGoals] = useState(2.5);
   const [targetOdd, setTargetOdd] = useState(1.9);
   const [matches, setMatches] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     api.get("balance").then((response) => {
@@ -30,13 +32,15 @@ function App() {
   }
 
   function handleSearch() {
-    api
-      .get(`matches/${targetOdd}/${underGoals}/${overGoals}`)
-      .then((response) => {
-        console.log("Target odd is " + targetOdd);
-        console.log(response.data);
-        setMatches(response.data);
-      });
+    setIsLoading(true),
+      api
+        .get(`matches/${targetOdd}/${underGoals}/${overGoals}`)
+        .then((response) => {
+          //console.log("Target odd is " + targetOdd);
+          //console.log(response.data);
+          setMatches(response.data);
+          setIsLoading(false);
+        });
   }
 
   return (
@@ -100,17 +104,26 @@ function App() {
           <button onClick={handleSearch}>Search</button>
         </div>
         <div className="result-panel">
-          <ul>
-            {matches.map((match) => (
-              <Match
-                key={match.id}
-                starts={match.starts}
-                odd={match.odd}
-                home={match.home}
-                away={match.away}
-              />
-            ))}
-          </ul>
+          {!isLoading ? (
+            <ul>
+              {matches.map((match) => (
+                <Match
+                  key={match.id}
+                  starts={match.starts}
+                  odd={match.odd}
+                  home={match.home}
+                  away={match.away}
+                />
+              ))}
+            </ul>
+          ) : (
+            <Loader
+              type="BallTriangle"
+              color="#00adb5"
+              height={100}
+              width={100}
+            />
+          )}
         </div>
       </div>
     </div>

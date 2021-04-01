@@ -20,27 +20,6 @@ let marketData = {
   overGoals: null,
   targetOdd: null,
   matches: [],
-
-  /*  [
-    {
-      id: Math.random(),
-      date: "24/03/2020",
-      time: "21:35",
-      goals: "Over 2.5",
-      odd: 1.8,
-      home: "Team A",
-      away: "Team B",
-    },
-    {
-      id: Math.random(),
-      date: "25/03/2020",
-      time: "20:00",
-      goals: "Under 2.5",
-      odd: 1.9,
-      home: "Team C",
-      away: "Team D",
-    },
-  ], */
 };
 
 const getBalance = async () => {
@@ -116,6 +95,7 @@ const getOdds = async () => {
 };
 
 const findMatches = async () => {
+  marketData.matches = [];
   let foundMatches = [];
 
   try {
@@ -126,12 +106,12 @@ const findMatches = async () => {
           matchId: event.id,
           totals: (event.periods[0].totals || []).filter(
             (value) =>
-              (value.points === marketData.underGoals ||
-                value.points === marketData.overGoals) &&
-              ((value.over >= marketData.targetOdd &&
-                value.over < value.under) ||
-                (value.under >= marketData.targetOdd &&
-                  value.under < value.over))
+              (value.points === marketData.underGoals &&
+                value.under >= marketData.targetOdd &&
+                value.under < value.over) ||
+              (value.points === marketData.overGoals &&
+                value.over >= marketData.targetOdd &&
+                value.over < value.under)
           ),
         })
       )
@@ -147,8 +127,7 @@ const findMatches = async () => {
       event.events.forEach((fixture) =>
         foundMatches.map((match) =>
           match.matchId === fixture.id
-            ? //console.log(fixture)
-              marketData.matches.push({
+            ? marketData.matches.push({
                 id: fixture.id,
                 starts: fixture.starts,
                 goals: match.totals[0].points,

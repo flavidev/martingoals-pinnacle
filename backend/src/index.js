@@ -4,9 +4,6 @@ const axios = require("axios");
 
 require("dotenv").config({ path: __dirname + "/.env" });
 
-const oddsData = require("./mockData/OddsData.json");
-const fixturesData = require("./mockData/FixturesData.json");
-
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -100,7 +97,6 @@ const findMatches = async () => {
 
   try {
     marketData.odds.leagues.forEach((league) =>
-      //oddsData.leagues.forEach((league) =>
       league.events.forEach((event) =>
         foundMatches.push({
           matchId: event.id,
@@ -121,7 +117,7 @@ const findMatches = async () => {
 
     foundMatches = foundMatches.filter((match) => match.totals.length > 0);
 
-    fixturesData.league.forEach((event) =>
+    marketData.fixtures.league.forEach((event) =>
       event.events.forEach((fixture) =>
         foundMatches.map((match) =>
           match.matchId === fixture.id

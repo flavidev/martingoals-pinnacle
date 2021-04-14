@@ -6,9 +6,9 @@ This application was developed to be played as a variation of martingale system.
 ```
 /martingoals/backend/src/echo $'USERNAME=PINNACLE_USERNAME\nPASSWORD=PINNACLEPASSWORD\nINITIAL_DEPOSIT=YOUR_INITIAL_DEPOSIT' > .env
 
-/martingoals/backend/yarn dev
+/martingoals/backend/yarn start
 
-/martingoals/frontend/yarn dev
+/martingoals/frontend/yarn start
 
 open "http://localhost:8080/"
 ```

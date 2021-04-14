@@ -30,7 +30,6 @@ const getBalance = async () => {
       },
     });
     marketData.balance = response.data;
-    //console.log(marketData.balance);
   } catch (err) {
     console.log(err);
   }
@@ -156,6 +155,7 @@ const findMatches = async () => {
 
 app.get("/balance", async (req, res) => {
   await getBalance();
+  marketData.balance.initialDeposit = parseFloat(process.env.INITIAL_DEPOSIT);
   res.send(JSON.stringify(marketData.balance));
 });
 

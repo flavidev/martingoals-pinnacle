@@ -7,8 +7,7 @@ import Loader from "react-loader-spinner";
 import "./App.css";
 
 function App() {
-  const initialDeposit = 77.46;
-
+  const [initialDeposit, setInitialDeposit] = useState();
   const [balance, setBalance] = useState();
   const [openBet, setOpenBet] = useState();
   const [underGoals, setUnderGoals] = useState(2.5);
@@ -19,6 +18,7 @@ function App() {
 
   useEffect(() => {
     api.get("balance").then((response) => {
+      setInitialDeposit(response.data.initialDeposit);
       setBalance(response.data.availableBalance);
       setOpenBet(response.data.outstandingTransactions);
     });

@@ -1,7 +1,7 @@
 # martingoals-pinnacle/
 A React web app created to extract data from [Pinnacle](https://www.pinnacle.com/en) and scrape barely favorites from under/over goals market of Pinnacle website.
 
-This application was developed to be played as a variation of martingale system. The main principle is to toss the "rigged" coin, your chances are bigger than 50% each time but your earns/risks are also smaller.  
+This application was developed to be played as a variation of martingale system. The main principle is to toss the "rigged" coin, making your chances bigger than 50% each time. Nevertheless, earns/risks are mitigated in comparison with the "double or nothing" standard from classic martingale.
 
 ```
 /martingoals/backend/src/echo $'USERNAME=PINNACLE_USERNAME\nPASSWORD=PINNACLEPASSWORD\nINITIAL_DEPOSIT=YOUR_INITIAL_DEPOSIT' > .env

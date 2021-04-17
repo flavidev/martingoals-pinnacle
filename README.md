@@ -1,14 +1,15 @@
-# martingoals-pinnacle/
-A React web app created to extract data from [Pinnacle](https://www.pinnacle.com/en) and scrape barely favorites from under/over goals market of Pinnacle website.
+# martingoals-pinnacle
 
-This application was developed to be played as a variation of martingale system. The main principle is to toss the "rigged" coin, making winning chances bigger than 50% each time, nevertheless earns/risks are mitigated in comparison with to "double or nothing" standard from classic martingale.
+Web application built with ReactJS/Node to extract data from [Pinnacle Sports](https://www.pinnacle.com/en) and scrape barely favorites from under/over goals market.
+
+This app was developed to be played as a variation of martingale system. The main principle is to toss the "rigged" coin, making winning chances bigger than 50% each time, nevertheless earns/risks are mitigated in comparison with to "double or nothing" standard from classic martingale.
 
 ```
 /martingoals/backend/src/echo $'USERNAME=PINNACLE_USERNAME\nPASSWORD=PINNACLEPASSWORD\nINITIAL_DEPOSIT=YOUR_INITIAL_DEPOSIT' > .env
 
-/martingoals/backend/yarn start
+/martingoals/backend/yarn install && yarn start
 
-/martingoals/frontend/yarn start
+/martingoals/frontend/yarn install && yarn start
 
 open "http://localhost:8080/"
 ```

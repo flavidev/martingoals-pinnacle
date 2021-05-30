@@ -8,6 +8,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const PORT = 3333
+const HOST = "0.0.0.0"
+
 let marketData = {
   soccerId: null,
   fixtures: {},
@@ -170,6 +173,6 @@ app.get("/matches/:targetOdd/:underGoals/:overGoals", async (req, res) => {
   res.send(JSON.stringify(marketData.matches));
 });
 
-app.listen(3333, () => {
-  console.log("Server started...⚡️");
+app.listen(PORT, HOST, () => {
+  console.log(`Server running on http://${HOST}:${PORT} ⚡️`);
 });

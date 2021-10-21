@@ -7,9 +7,13 @@ This app was developed to be played as a variation of martingale system. The mai
 ```
 /martingoals/backend/src/echo $'USERNAME=PINNACLE_USERNAME\nPASSWORD=PINNACLEPASSWORD\nINITIAL_DEPOSIT=YOUR_INITIAL_DEPOSIT' > .env
 
-/martingoals/backend/yarn install && yarn start
+/martingoals/backend/yarn install
 
-/martingoals/frontend/yarn install && yarn start
+/martingoals/frontend/yarn install
+
+/martingoals/yarn install
+
+/martingoals/yarn start
 
 open "http://localhost:8080/"
 ```
